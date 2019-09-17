@@ -7,7 +7,7 @@ const CardWrapper =styled.div`
 // flex-direction: row;
 // flex-wrap: wrap;
 // justify-content: space-around;
-margin: 1%;
+margin: 2%;
 width: 35%;
 `
 

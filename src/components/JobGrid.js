@@ -29,21 +29,36 @@ export default function JobGrid(){
     const [companyArr, setCompanyArr] = useState([])
     const [tech, setTech] = useState('python')
     const [location, setLocation] = useState('San_Francisco')
+    const [url ,setTheUrl] = useState(`https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=Python&full_time=true&location=$San_Franciso`)
+
+    const setUrl = (loc,lang) =>{
+        return (`https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=${lang}&full_time=true&location=${loc}`)
+    }
+    
     const tech_list = ['Python','Java', 'JavaScript', 'C++', 'C']
     const location_list = ['San_Francisco','Los_Angeles','New_York','Las_Vegas','San_Diego','Berkeley']
 
+    function getInput(){
+        console.log('hello there')
+        let city = document.getElementById('citySelect').value
+        let lang = document.getElementById('langSelect').value
+        setLocation(city)
+        setTech(lang)
+        return setTheUrl(setUrl(location, tech))
+        
+    }
 
 
     useEffect(()=>{ 
     axios
-    .get(`https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=${tech}&full_time=true&location=${location}`)
+    .get(url)
     //.get('https://swapi.co/api/people/?page=1')
     .then(response=>{
         setCompanyArr(response.data);
     })
     .catch(error=> console.log(error))
 
-    },[])
+    },[url])
 
    
     console.log(companyArr)
@@ -53,7 +68,7 @@ export default function JobGrid(){
             <FormWrapper>
                 <FormGroup>
                     <Label for="exampleSelect">Select City</Label>
-                    <Input type="select" name="select" id="exampleSelect">
+                    <Input type="select" name="select" id="citySelect">
                     {location_list.map(lang =>
                         <option>{lang.split('_').join(' ')}</option>
                         )}
@@ -61,13 +76,13 @@ export default function JobGrid(){
                 </FormGroup>
                 <FormGroup>
                     <Label for="exampleSelect">Select Language</Label>
-                    <Input type="select" name="select" id="exampleSelect">
+                    <Input type="select" name="select" id="langSelect">
                         {tech_list.map(lang =>
                         <option>{lang}</option>
                         )}
                     </Input>
                 </FormGroup>
-                <Button onClick={()=> console.log('clicked')}className='btn-lg btn-dark btn-lg'>Submit</Button>
+                <Button type="submit" onClick={()=> getInput()}className='btn-lg btn-dark btn-lg'>Submit</Button>
             </FormWrapper>
             <CustomCard>
                 {companyArr.map((obj, ind)=>
