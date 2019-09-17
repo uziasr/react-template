@@ -31,3 +31,10 @@
     transform: rotate(360deg);
   }
 }
+.card-section{
+  /* background-image: linear-gradient(to right bottom, #cbecee, #abd1d3, #8cb7b9, #6d9da0, #4e8487); */
+  /* background-image: linear-gradient(to right bottom, #7b8c8d, #86999b, #92a7aa, #9eb4b9, #aac2c8); */
+  /* background-image: linear-gradient(to right bottom, #c1cecf, #c4d0d1, #c6d1d3, #c9d3d5, #ccd5d7); */
+  background-color: #e9ecef;
+
+}

@@ -4,6 +4,7 @@ import axios from 'axios'
 import JobCard from './JobCard'
 import DropDownButton from './JobSearcher'
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import {Link} from 'react-router-dom'
 
 const CustomCard =styled.div`
 display:flex;
@@ -27,7 +28,7 @@ align-items: center;
 export default function JobGrid(){
 
     const [companyArr, setCompanyArr] = useState([])
-    const [tech, setTech] = useState('python')
+    const [tech, setTech] = useState('Python')
     const [location, setLocation] = useState('San_Francisco')
     const [url ,setTheUrl] = useState(`https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=Python&full_time=true&location=$San_Franciso`)
 
@@ -84,9 +85,10 @@ export default function JobGrid(){
                 </FormGroup>
                 <Button type="submit" onClick={()=> getInput()}className='btn-lg btn-dark btn-lg'>Submit</Button>
             </FormWrapper>
-            <CustomCard>
+            <CustomCard className='card-section'>
                 {companyArr.map((obj, ind)=>
-                    {return (<JobCard title={obj.company} created={obj.created_at} p_title={obj.title} type={obj.type} location={obj.location}/>)},)
+                    {console.log(obj.id) 
+                        return (<JobCard key={obj.id} id={obj.id} title={obj.company} created={obj.created_at.split(' ').splice(0,3).join(' ')} p_title={obj.title} type={obj.type} location={obj.location}/>);},)
                 }
             </CustomCard>
         </div>
@@ -94,16 +96,3 @@ export default function JobGrid(){
 
 
 }
-
-
-
-{/* <FormGroup>
-          <Label for="exampleSelect">Select</Label>
-          <Input type="select" name="select" id="exampleSelect">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </Input>
-</FormGroup> */}
