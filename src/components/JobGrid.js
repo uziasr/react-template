@@ -5,6 +5,7 @@ import JobCard from './JobCard'
 import DropDownButton from './JobSearcher'
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import {Link} from 'react-router-dom'
+import {languages, cityNames} from './data'
 
 const CustomCard =styled.div`
 display:flex;
@@ -17,13 +18,17 @@ justify-content: space-evenly;
 `
 const FormWrapper = styled.div`
 width: 70%;
-margin: 2% auto;
+margin: 0 auto;
 display:flex;
 justify-content: space-evenly;
 align-content: center;
 align-items: center;
 
 `
+const GridContainer = styled.div`
+margin: 2% 0;
+`
+
 
 export default function JobGrid(){
 
@@ -40,12 +45,12 @@ export default function JobGrid(){
     const location_list = ['San_Francisco','Los_Angeles','New_York','Las_Vegas','San_Diego','Berkeley']
 
     function getInput(){
-        console.log('hello there')
         let city = document.getElementById('citySelect').value
         let lang = document.getElementById('langSelect').value
         setLocation(city)
         setTech(lang)
-        return setTheUrl(setUrl(location, tech))
+        return setTheUrl(setUrl(city, lang))
+        
         
     }
 
@@ -64,13 +69,13 @@ export default function JobGrid(){
    
     console.log(companyArr)
     return(
-        <div>
+        <GridContainer>
             <h2>{`There are ${companyArr.length} ${tech} jobs in ${location.split('_').join(' ')} `}</h2> 
             <FormWrapper>
                 <FormGroup>
                     <Label for="exampleSelect">Select City</Label>
                     <Input type="select" name="select" id="citySelect">
-                    {location_list.map(lang =>
+                    {cityNames.map(lang =>
                         <option>{lang.split('_').join(' ')}</option>
                         )}
                     </Input>
@@ -78,7 +83,7 @@ export default function JobGrid(){
                 <FormGroup>
                     <Label for="exampleSelect">Select Language</Label>
                     <Input type="select" name="select" id="langSelect">
-                        {tech_list.map(lang =>
+                        {languages.map(lang =>
                         <option>{lang}</option>
                         )}
                     </Input>
@@ -87,11 +92,11 @@ export default function JobGrid(){
             </FormWrapper>
             <CustomCard className='card-section'>
                 {companyArr.map((obj, ind)=>
-                    {console.log(obj.id) 
-                        return (<JobCard key={obj.id} id={obj.id} title={obj.company} created={obj.created_at.split(' ').splice(0,3).join(' ')} p_title={obj.title} type={obj.type} location={obj.location}/>);},)
+                    { 
+                        return (<JobCard key={ind} id={ind} job={tech} city={location} title={obj.company} created={obj.created_at.split(' ').splice(0,3).join(' ')} p_title={obj.title} type={obj.type} locate={obj.location}/>);},)
                 }
             </CustomCard>
-        </div>
+        </GridContainer >
     )
 
 
