@@ -21,7 +21,7 @@ export default function JobCard(props){
         <Card body outline color="primary">
         <CardTitle className='h3'>{props.title}</CardTitle>
         <CardText>{props.p_title} | {props.type}</CardText> <CardText>Location: {props.locate}</CardText><CardText>Job Created: {props.created}</CardText>
-        <Link to={`/Job/${props.job}-${props.city}-${props.id}`}><Button color="primary">Learn More</Button></Link>
+        <Link to={`/Job/${props.job}-${props.city}-${props.id}`}{...props}><Button color="primary">Learn More</Button></Link>
         </Card>
     </div>
     </CardWrapper>

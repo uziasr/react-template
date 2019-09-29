@@ -1,9 +1,27 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
+import styled from 'styled-components'
+import DOMParser from 'dom-parser'
 
+const TextWrap = styled.div`
+display:flex;
+justify-contetn:center;
+align-content: center;
+align-items: center;
+margin: auto;
+`
+const RightWrap = styled.div`
+width: 60%;
+margin: 3% 3% 3% 1.5%;
+`
+const LeftWrap = styled.div`
+width: 35%;
+margin: 3% 1.5% 3% 3%;
+
+`
 
 export default function Job(props){
-    const [jobObj, setJobObj] = useState()
+    const [jobObj, setJobObj] = useState([])
     
     // const [job,city, id] = url.split('-')
     useEffect(() => {
@@ -23,12 +41,38 @@ export default function Job(props){
             });
        
         
-      }, [jobObj]);
-    
+      }, []);
     console.log(jobObj)
-    
+    console.log(props)
+    function noHTML(text){
+      if (text){
+      return text.replace(/<[^>]*>?/gm, '');
+      }
+    }
+    function ComponentPlease(text){
+      // not working 
+      console.log(text)
+      if (text){
+        const parser = new DOMParser()
+        const firedHTML = parser.parseFromString(text, 'text/xml')
+        const wrapper  = document.createElement('div')
+        console.log(firedHTML)
+        // wrapper.appendChild(firedHTML)
+        // console.log(wrapper.firstChild.innerHTML)
+        return({firedHTML})
+    }
+    }
+
     return(
-        <h1>it's working </h1> 
+      <TextWrap>
+        <LeftWrap>
+        <h1>{jobObj.title}</h1>
+        <p>{noHTML  (jobObj.how_to_apply)}</p>
+        </LeftWrap>
+        <RightWrap>
+        {noHTML(jobObj.description)}
+        </RightWrap>
+      </TextWrap>
     )
 }
 

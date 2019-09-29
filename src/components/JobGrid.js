@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import JobCard from './JobCard'
-import DropDownButton from './JobSearcher'
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import {Link} from 'react-router-dom'
 import {languages, cityNames} from './data'
@@ -23,6 +22,7 @@ display:flex;
 justify-content: space-evenly;
 align-content: center;
 align-items: center;
+background-color: white;
 
 `
 const GridContainer = styled.div`
@@ -93,7 +93,7 @@ export default function JobGrid(){
             <CustomCard className='card-section'>
                 {companyArr.map((obj, ind)=>
                     { 
-                        return (<JobCard key={ind} id={ind} job={tech} city={location} title={obj.company} created={obj.created_at.split(' ').splice(0,3).join(' ')} p_title={obj.title} type={obj.type} locate={obj.location}/>);},)
+                        return (<JobCard key={ind} id={ind} job={tech} city={location} title={obj.company} created={obj.created_at.split(' ').splice(0,3).join(' ')} p_title={obj.title} type={obj.type}/>);},)
                 }
             </CustomCard>
         </GridContainer >
