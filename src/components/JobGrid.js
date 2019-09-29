@@ -26,7 +26,7 @@ background-color: white;
 
 `
 const GridContainer = styled.div`
-margin: 2% 0;
+// padding: 2% 0;
 `
 
 
